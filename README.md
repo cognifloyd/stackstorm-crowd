@@ -1,19 +1,34 @@
-# StackStorm Exchange Incubator
 
-### What is this?
+# Crowd Integration Pack
 
-This repository is a very special place where user-submitted packs get reviewed, perfected, approved, and finally transferred to the Exchange.
+Pack for integration of [Crowd](https://developer.atlassian.com/server/crowd/crowd-rest-apis/) into StackStorm. The pack includes the
+functionality to perform actions on Crowd through StackStorm.
 
-If you want to submit your pack, it's simple! **Fork this repo, create a subdirectory with your pack, and open a Pull Request.** We'll take it from here. Even if your pack is work-in-progress, you can still submit it to get advice and early feedback from our engineers! Or ping us [on Slack](https://stackstorm.com/community-signup), which is generally the best place to get advice from the StackStorm Community.
+## Configuration
 
-Before you submit a pack, make sure to read the [Create and Contribute a Pack](https://docs.stackstorm.com/reference/packs.html) section of our documentation.
+Copy the example configuration in [crowd.yaml.example](./crowd.yaml.example)
+to `/opt/stackstorm/configs/crowd.yaml` and edit as required.
 
-Here's N.E.P.T.R. the StackStorm Exchange Governor, giving you a thumbs-up:
+It must contain:
 
-![](http://i.imgur.com/3bqVAh0.gif)
+* ``app_url`` - URL for the Crowd application 
+* ``app_user`` - Crowd application user
+* ``app_pass`` - Crowd application password
 
-## Contributors License Agreement
+You can also use dynamic values from the datastore. See the
+[docs](https://docs.stackstorm.com/reference/pack_configs.html) for more info.
 
-By contributing you agree that these contributions are your own (or approved by your employer) and
-you grant a full, complete, irrevocable copyright license to all users and developers of the
-project, present and future, pursuant to the license of the project.
+**Note** : When modifying the configuration in `/opt/stackstorm/configs/` please
+           remember to tell StackStorm to load these new values by running
+           `st2ctl reload --register-configs`
+
+## Actions
+
+* `check_user` - Action to check if the user already exists in Crowd.
+* `get_user` - Action to get given user details from Crowd.
+* `add_user` - Action to add a user to the directory. 
+* `set_active` - Action to set/change the active state of a user.
+* `set_user_attribute` - Action to set/change an attribute on a existing user.
+* `add_user_to_group` - Action to add a user to a group.
+* `get_groups` - Action to retrieves a list of group names that have given user as a direct member.
+
